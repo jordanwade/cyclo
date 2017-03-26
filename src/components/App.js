@@ -32,7 +32,7 @@ class App extends Component {
   addResource(resource) {
     // update state
     const resources = {...this.state.resources};
-    // add in new fish
+    // add in new resource
     const timestamp = Date.now();
     resources[`resource-${timestamp}`] = resource;
     // set state 
