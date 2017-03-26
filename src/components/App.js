@@ -2,16 +2,34 @@ import React, { Component }from 'react';
 import AddResourceForm from  './AddResourceForm';
 
 class App extends Component {
+
+  constructor() {
+    super();
+
+    this.addResource = this.addResource.bind(this);
+
+    // getintial state
+    this.state = {
+      resources: {},
+    };
+  }
+
+  addResource(resource) {
+    // update state
+    const resources = {...this.state.resources};
+    // add in new fish
+    const timestamp = Date.now();
+    resources[`resource-${timestamp}`] = resource;
+    // set state 
+    this.setState({ resources });
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>Welcome to Cyclo</h2>
-        </div>
-        <p className="App-intro">
-          This app lets you keep track of all the things you have learned.
-        </p>
-        <AddResourceForm/>
+        <Header tagline="Welcome to Cyclo"/>
+        <AddResourceForm addResource={this.addResource}/>
+        <Resource/>
       </div>
     );
   }
