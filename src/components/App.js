@@ -28,7 +28,7 @@ class App extends Component {
   componentWillUnmount() {
     base.removeBinding(this.ref);
   }
-  
+
   addResource(resource) {
     // update state
     const resources = {...this.state.resources};
@@ -44,7 +44,12 @@ class App extends Component {
       <div className="App">
         <Header tagline="Welcome to Cyclo"/>
         <AddResourceForm addResource={this.addResource}/>
-        <Resource/>
+        <ul className="list-of-fishes">
+          {Object
+            .keys(this.state.resources)
+            .map(key => <Resource key={key} index={key} details={this.state.resources[key]} />)
+          }
+        </ul>
       </div>
     );
   }
