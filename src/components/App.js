@@ -17,6 +17,18 @@ class App extends Component {
     };
   }
 
+  componentWillMount() {
+    this.ref = base.syncState('/resources'
+      , {
+        context: this,
+        state: 'resources'
+    })
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
+  
   addResource(resource) {
     // update state
     const resources = {...this.state.resources};
