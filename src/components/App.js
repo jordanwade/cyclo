@@ -1,5 +1,8 @@
 import React, { Component }from 'react';
 import AddResourceForm from  './AddResourceForm';
+import Header from  './Header';
+import Resource from  './Resource';
+import base from '../base'; 
 
 class App extends Component {
 
