@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { BrowserRouter, Match, Miss  } from 'react-router';
 
 import App from './components/App';
+import ResourceShow from './components/ResourceShow';
 import NotFound from './components/NotFound';
 
 const Root = () => {
@@ -10,6 +11,7 @@ const Root = () => {
     <BrowserRouter>
       <div>
         <Match exactly pattern="/" component={App}/>
+        <Match exactly pattern="/resource/:resourceId" component={ResourceShow} />
         <Miss component={NotFound}/>
       </div>
     </BrowserRouter> 
