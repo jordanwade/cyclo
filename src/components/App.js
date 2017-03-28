@@ -11,12 +11,18 @@ class App extends Component {
     super();
 
     this.addResource = this.addResource.bind(this);
-    this.updateResource = this.updateResource.bind(this);
+    this.authenticate = this.authenticate.bind(this);
+    this.authHandler = this.authHandler.bind(this);
+    this.logout = this.logout.bind(this);
     this.removeResource = this.removeResource.bind(this);
+    this.removeResource = this.removeResource.bind(this);
+    this.renderLogin = this.renderLogin.bind(this);
+    this.updateResource = this.updateResource.bind(this);
 
     // getintial state
     this.state = {
       resources: {},
+      uid: null
     };
   }
 
@@ -30,6 +36,14 @@ class App extends Component {
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
+  }
+
+  componentDidMount() {
+    base.onAuth((user) => {
+      if(user) {
+        this.authHandler(null, { user });
+      }
+    });
   }
 
   addResource(resource) {
@@ -54,9 +68,48 @@ class App extends Component {
     this.setState({ resources });
   }
 
+  authenticate(provider) {
+    console.log(`Trying to log in with ${provider}`);
+    base.authWithOAuthPopup(provider, this.authHandler);
+  }
+
+  logout() {
+    base.unauth();
+    this.setState({ uid: null });
+  }
+
+  authHandler(err, authData)  {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    this.setState({
+      uid: authData.user.uid
+    });
+  }
+
+  renderLogin() {
+    return (
+      <nav className="login">
+        <h2>Cyclo</h2>
+        <p>Please sign in.</p>
+        <button className="github" onClick={() => this.authenticate('github')}>Log In with Github</button>
+      </nav>
+    )
+  }
+
   render() {
+    const logout = <button onClick={this.logout}>Log Out!</button>;
+
+    // check if they are no logged in at all
+    if(!this.state.uid) {
+      return <div>{this.renderLogin()}</div>
+    }
+
     return (
       <div className="App">
+        {logout}
         <Header tagline="Welcome to Cyclo"/>
         <AddResourceForm addResource={this.addResource}/>
         <ul className="list-of-fishes">
