@@ -30,14 +30,14 @@ class ResourceShow extends Component {
     const resource = this.state.resources;
 
     return (
-      <div>
+      <main>
         <h3 className="resource-name">
           {resource.name}
         </h3>
         <span className="url">{resource.url}</span>
         <p>{resource.desc}</p>
         <p>{resource.imple}</p>
-      </div> 
+      </main> 
     )
   }
 }

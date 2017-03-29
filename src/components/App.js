@@ -1,4 +1,8 @@
+// Global
 import React, { Component }from 'react';
+import '../stylesheets/app.css';
+
+// App
 import AddResourceForm from  './AddResourceForm';
 import Header from  './Header';
 import Resource from  './Resource';
@@ -108,7 +112,7 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
+      <main className="main">
         {logout}
         <Header tagline="Welcome to Cyclo"/>
         <AddResourceForm addResource={this.addResource}/>
@@ -123,7 +127,7 @@ class App extends Component {
           updateResource={this.updateResource}
           removeResource={this.removeResource}
         />
-      </div>
+      </main>
     );
   }
 }
