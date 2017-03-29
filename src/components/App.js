@@ -55,7 +55,7 @@ class App extends Component {
     const resources = {...this.state.resources};
     // add in new resource
     const timestamp = Date.now();
-    resources[`resource-${timestamp}`] = resource;
+    resources[`${timestamp}`] = resource;
     // set state 
     this.setState({ resources });
   }
