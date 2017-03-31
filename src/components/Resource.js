@@ -12,13 +12,15 @@ class Resource extends Component {
 
     return (
       <li>
-        <h3 className="resource-name">
-          {details.name}
+        <h3 className="resource-title">
+          {details.title}
         </h3>
         <span className="url">{details.url}</span>
         <span className="technology">{details.technology}</span>
         <p>{details.desc}</p>
         <p>{details.imple}</p>
+        <p>Author: {details.name}</p>
+        <p><img alt={details.name} src={details.avatar} width="24" /></p>
         <button onClick={(e) => this.goToResource(e)} >Visit Resource →</button>
       </li> 
     )

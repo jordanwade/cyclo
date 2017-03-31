@@ -88,9 +88,18 @@ class App extends Component {
       return;
     }
 
-    this.setState({
-      uid: authData.user.uid
+    const storeRef = base.database().ref(this.props.resourceId);
+
+    storeRef.once('value', (snapshot) => {
+      const data = snapshot.val() || {};
+
+      this.setState({
+        uid: authData.user.uid,
+        name: authData.user.displayName,
+        avatar: authData.user.photoURL
+      });
     });
+
   }
 
   renderLogin() {
@@ -115,11 +124,19 @@ class App extends Component {
       <main className="main">
         {logout}
         <Header tagline="Welcome to Cyclo"/>
-        <AddResourceForm addResource={this.addResource}/>
+        <AddResourceForm addResource={this.addResource}
+                         avatar={this.state.avatar}
+                         name={this.state.name}
+                         uid={this.state.uid}
+        />
         <ul className="list-of-fishes">
           {Object
             .keys(this.state.resources)
-            .map(key => <Resource key={key} index={key} details={this.state.resources[key]} />)
+            .map(key => <Resource 
+                          key={key}
+                          index={key}
+                          details={this.state.resources[key]}
+                        />)
           }
         </ul>
         <Inventory

@@ -31,12 +31,14 @@ class ResourceShow extends Component {
 
     return (
       <main>
-        <h3 className="resource-name">
-          {resource.name}
+        <h3 className="resource-title">
+          {resource.title}
         </h3>
         <span className="url">{resource.url}</span>
         <p>{resource.desc}</p>
         <p>{resource.imple}</p>
+        <p>Author: {resource.name}</p>
+        <p><img alt={resource.name} src={resource.avatar} width="24" /></p>
       </main> 
     )
   }

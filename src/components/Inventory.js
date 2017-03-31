@@ -21,7 +21,7 @@ class Inventory extends React.Component {
     const resource = this.props.resources[key]; 
     return (
       <div className="resource-edit" key={key}>
-        <input name="name" type="text" value={resource.name}  placeholder="Resource Name" onChange={(e) => this.handleChange(e, key)}/>
+        <input name="title" type="text" value={resource.title}  placeholder="Resource Title" onChange={(e) => this.handleChange(e, key)}/>
         <input name="technology" type="text" value={resource.technology}  placeholder="Technology" onChange={(e) => this.handleChange(e, key)}/>
         <input name="url"  type="text" value={resource.url}  placeholder="Resource url" onChange={(e) => this.handleChange(e, key)}/>
         <textarea name="desc" value={resource.desc}  placeholder="Resource desc" onChange={(e) => this.handleChange(e, key)}></textarea>
