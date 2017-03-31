@@ -8,17 +8,17 @@ class Resource extends Component {
   }
 
   render() { 
-    const { details, index } = this.props;
+    const { details } = this.props;
 
     return (
       <li>
         <h3 className="resource-title">
           {details.title}
         </h3>
-        <span className="url">{details.url}</span>
-        <span className="technology">{details.technology}</span>
-        <p>{details.desc}</p>
-        <p>{details.imple}</p>
+        <p className="url">{details.url}</p>
+        <p className="technology"> Technology: {details.technology}</p>
+        <p>Description: {details.desc}</p>
+        <p>Implementation: {details.imple}</p>
         <p>Author: {details.name}</p>
         <p><img alt={details.name} src={details.avatar} width="24" /></p>
         <button onClick={(e) => this.goToResource(e)} >Visit Resource →</button>

@@ -1,5 +1,4 @@
 import React from 'react';
-import AddResourceForm from './AddResourceForm';
 
 class Inventory extends React.Component {
   constructor() {

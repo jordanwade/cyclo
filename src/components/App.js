@@ -91,7 +91,6 @@ class App extends Component {
     const storeRef = base.database().ref(this.props.resourceId);
 
     storeRef.once('value', (snapshot) => {
-      const data = snapshot.val() || {};
 
       this.setState({
         uid: authData.user.uid,
