@@ -14,6 +14,18 @@ export function addResource(resource) {
   }
 }
 
+
+// update resource
+
+export function updateResource(key, updatedResource) {
+
+  return {
+    type: 'UPDATE_RESOURCE',
+    key,
+    updatedResource
+  }
+}
+
 // remove resource
 
 export function removeResource(resourceId, i) {

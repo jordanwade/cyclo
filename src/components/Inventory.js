@@ -6,14 +6,16 @@ class Inventory extends React.Component {
     this.renderInventory = this.renderInventory.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+
   handleChange(e, key) {
     const resource = this.props.resources[key]; 
     // take a copy of that resource and update if with the new data
     const updatedResource = {
       ...resource,
       [e.target.name]:  e.target.value
-    }
-    this.props.updateResource(key, updatedResource)
+    };
+    this.props.updateResource(key, updatedResource);
+    
   }
 
   renderInventory(key) {
@@ -41,9 +43,7 @@ class Inventory extends React.Component {
 }
 
 Inventory.propTypes = {
-  resources: React.PropTypes.object.isRequired,
-  removeResource: React.PropTypes.func.isRequired,
-  updateResource: React.PropTypes.func.isRequired
+  resources: React.PropTypes.array.isRequired,
 }
 
 export default Inventory;

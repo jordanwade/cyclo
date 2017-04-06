@@ -4,20 +4,9 @@ import React, { Component } from 'react';
 // App
 import AddResourceForm from  './AddResourceForm';
 import Resource from  './Resource';
+import Inventory from  './Inventory';
 
 class Resources extends Component {
-
-  // updateResource(key, updatedResource) {
-  //   const resources = {...this.state.resources};
-  //   resources[key] = updatedResource;
-  //   this.setState({ resources });
-  // }
-
-  // removeResource(key) {
-  //   const resources = {...this.state.resources};
-  //   resources[key] = null;
-  //   this.setState({ resources });
-  // }
 
   render() {
 
@@ -34,6 +23,7 @@ class Resources extends Component {
                         />)
           }
         </ul>
+        <Inventory {...this.props} />
       </main>
     );
   }
