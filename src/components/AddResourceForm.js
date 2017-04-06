@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class AddResourceForm extends Component {
-
+const AddResourceForm = React.createClass({
   createResource(event) {
     event.preventDefault();
     console.log('Gonna make a resource! 😎');
     const resource = {
-      avatar       : this.props.avatar,
+      avatar       : this.props.user.avatar,
       desc         : this.desc.value, 
       imple        : this.imple.value, 
-      name         : this.props.name,
+      name         : this.props.user.name,
       technology   : this.technology.value, 
       title        : this.title.value,
-      uid          : this.props.uid,
+      uid          : this.props.user.uid,
       url          : this.url.value,
     }
 
     this.props.addResource(resource);
     this.resourceForm.reset();
-  }
+  },
 
   render() { 
     return (
@@ -32,11 +31,11 @@ class AddResourceForm extends Component {
       </form>
     )
   }
-}
+});
 
 AddResourceForm.propTypes = {
   addResource: React.PropTypes.func.isRequired
 }
 
-export default AddResourceForm
+export default AddResourceForm;
 

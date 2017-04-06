@@ -46,4 +46,4 @@ Inventory.propTypes = {
   updateResource: React.PropTypes.func.isRequired
 }
 
-export default Inventory
+export default Inventory;

@@ -35,4 +35,4 @@ Resource.propTypes = {
   index: React.PropTypes.string.isRequired
 }
 
-export default Resource
+export default Resource;
