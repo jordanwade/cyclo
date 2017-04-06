@@ -1,12 +1,11 @@
 // Global
-import React from 'react';
+import React, { Component } from 'react';
 
 // App
 import AddResourceForm from  './AddResourceForm';
 import Resource from  './Resource';
 
-
-const Resources = React.createClass({
+class Resources extends Component {
 
   // updateResource(key, updatedResource) {
   //   const resources = {...this.state.resources};
@@ -38,6 +37,6 @@ const Resources = React.createClass({
       </main>
     );
   }
-});
+}
 
 export default Resources;

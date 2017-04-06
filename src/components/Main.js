@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 import Header from  './Header';
 
 import base from '../base'; 
 
-const Main = React.createClass({
+class Main extends Component {
+
+  constructor(props){
+    super(props);
+    this.authenticate = this.authenticate.bind(this);
+    this.authHandler = this.authHandler.bind(this);
+    this.logout = this.logout.bind(this);
+  }
 
   // componentWillMount() {
   //   this.props.fetchResources();
@@ -18,7 +25,7 @@ const Main = React.createClass({
   authenticate(provider) {
     console.log(`Trying to log in with ${provider}`);
     base.authWithOAuthPopup(provider, this.authHandler);
-  },
+  }
 
   authHandler(err, authData) {
     console.log(authData);
@@ -32,12 +39,12 @@ const Main = React.createClass({
     const avatar = authData.user.photoURL;
     this.props.addUser(avatar, name, uid);
 
-  },
+  }
 
   logout() {
     base.unauth();
     this.props.removeUser();
-  },
+  }
 
   renderLogin() {
     return (
@@ -47,7 +54,7 @@ const Main = React.createClass({
         <button className="github" onClick={() => this.authenticate('github')}>Log In with Github</button>
       </nav>
     )
-  },
+  }
 
   render() {
     const logout = <button onClick={this.logout}>Log Out!</button>;
@@ -66,6 +73,6 @@ const Main = React.createClass({
     )
   }
 
-});
+}
 
 export default Main; 

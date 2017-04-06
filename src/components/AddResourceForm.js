@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const AddResourceForm = React.createClass({
+class AddResourceForm extends Component {
+
+  constructor(props){
+    super(props);
+    this.createResource = this.createResource.bind(this);
+  }
+
   createResource(event) {
     event.preventDefault();
     console.log('Gonna make a resource! 😎');
@@ -20,7 +26,7 @@ const AddResourceForm = React.createClass({
 
     this.props.addResource(resource);
     this.resourceForm.reset();
-  },
+  }
 
   render() { 
     return (
@@ -34,7 +40,7 @@ const AddResourceForm = React.createClass({
       </form>
     )
   }
-});
+}
 
 export default AddResourceForm;
 
