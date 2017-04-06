@@ -11,11 +11,7 @@ class Resource extends Component {
         <h3 className="resource-title">
           {details.title}
         </h3>
-        <p className="url">{details.url}</p>
         <p className="technology"> Technology: {details.technology}</p>
-        <p>Description: {details.desc}</p>
-        <p>Implementation: {details.imple}</p>
-        <p>Author: {details.name}</p>
         <p><img alt={details.name} src={details.avatar} width="24" /></p>
         <Link className="button" to={`/view/${details.uid}`} >Visit Resource →</Link>
       </li> 
