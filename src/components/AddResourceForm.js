@@ -4,16 +4,19 @@ const AddResourceForm = React.createClass({
   createResource(event) {
     event.preventDefault();
     console.log('Gonna make a resource! 😎');
+    const timestamp = Date.now();
+
     const resource = {
-      avatar       : this.props.user.avatar,
-      desc         : this.desc.value, 
-      imple        : this.imple.value, 
-      name         : this.props.user.name,
-      technology   : this.technology.value, 
-      title        : this.title.value,
-      uid          : this.props.user.uid,
-      url          : this.url.value,
-    }
+        resourceId   : `${timestamp}`,
+        avatar       : this.props.user.avatar,
+        desc         : this.desc.value,
+        imple        : this.imple.value,
+        name         : this.props.user.name,
+        technology   : this.technology.value,
+        title        : this.title.value,
+        uid          : this.props.user.uid,
+        url          : this.url.value,
+    };
 
     this.props.addResource(resource);
     this.resourceForm.reset();
@@ -32,10 +35,6 @@ const AddResourceForm = React.createClass({
     )
   }
 });
-
-AddResourceForm.propTypes = {
-  addResource: React.PropTypes.func.isRequired
-}
 
 export default AddResourceForm;
 

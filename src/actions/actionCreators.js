@@ -6,19 +6,11 @@ export function fetchResources() {
 
 // add resource
 
-export function addResource(resourceId, avatar, imple, name, technology, title, uid, url) {
+export function addResource(resource) {
 
-  const timestamp = Date.now();
   return {
     type: 'ADD_RESOURCE',
-    resourceId: `${timestamp}`,
-    avatar,
-    imple,
-    name,
-    technology,
-    title,
-    uid,
-    url
+    resource
   }
 }
 
