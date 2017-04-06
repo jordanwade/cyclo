@@ -1,5 +1,5 @@
-const resources = {
-  1491358293821: {
+const resources = [
+  {
     avatar:"https://avatars0.githubusercontent.com/u/2528817?v=3",
     desc:"I learned a lot",
     imple:"I haven't used this yet",
@@ -9,6 +9,6 @@ const resources = {
     uid: "YgUYD1nb5RVClbVoxO4snmfuFS93",
     url: "js.com"
   }
-};
+];
 
 export default resources;

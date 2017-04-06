@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 class Resource extends Component {
-
-  goToResource() {
-    const resourceId = this.props.index;
-    this.context.router.transitionTo(`/resource/${resourceId}`);
-  }
 
   render() { 
     const { details } = this.props;
@@ -21,7 +17,7 @@ class Resource extends Component {
         <p>Implementation: {details.imple}</p>
         <p>Author: {details.name}</p>
         <p><img alt={details.name} src={details.avatar} width="24" /></p>
-        <button onClick={(e) => this.goToResource(e)} >Visit Resource →</button>
+        <Link className="button" to={`/view/${details.uid}`} >Visit Resource →</Link>
       </li> 
     )
   }
