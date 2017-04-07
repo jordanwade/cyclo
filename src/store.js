@@ -1,20 +1,40 @@
+// *************************************
+//
+//   Store
+//   1. All Reducers which we combined into `rootReducer`
+//   2. An optional starting state - similar to React's getInitialState
+//
+// *************************************
+
+// ----- Imports ----- //
+
 import { createStore } from 'redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 
-// import the root reducer
+// root reducer
 import rootReducer from './reducers/index';
 
+// Data
 import resources from './data/resources';
 import user from './data/user';
 
-// create object for the default data
+// ----- Default Data ----- //
+
 const defaultState = {
   resources,
   user
 }
 
-const store = createStore(rootReducer, defaultState);
+// ----- Redux Devtools ----- //
+
+const reduxDevtools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+
+// ----- Store----- //
+
+const store = createStore(rootReducer, defaultState, reduxDevtools);
+
+// ----- History----- //
 
 export const history = syncHistoryWithStore(browserHistory, store);
 
