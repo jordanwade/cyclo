@@ -28,11 +28,10 @@ export function updateResource(key, updatedResource) {
 
 // remove resource
 
-export function removeResource(resourceId, i) {
+export function removeResource(key) {
   return {
     type: 'REMOVE_RESOURCE',
-    i,
-    resourceId
+    key
   }
 }
 
