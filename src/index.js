@@ -11,11 +11,14 @@ import Single from './components/Single';
 import Resources from './components/Resources';
 import NotFound from './components/NotFound';
 
-// Import react router deps
-import { Router, Route, IndexRoute } from 'react-router';
 
-import { Provider } from 'react-redux';
 import store, { history } from './store';
+
+import Raven from 'raven-js';
+
+Raven
+    .config('https://cebdea847d9f43e3bb3eb7bf3d3ccc01@sentry.io/156339')
+    .install();
 
 const Root = () => {
   return (
