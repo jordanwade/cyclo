@@ -14,9 +14,9 @@ class Main extends Component {
     this.logout = this.logout.bind(this);
   }
 
-  // componentWillMount() {
-  //   this.props.fetchResources();
-  // },
+  componentWillMount() {
+    this.props.fetchResources();
+  }
 
   // componentWillUnmount() {
   //   base.removeBinding(this.ref);
@@ -57,7 +57,7 @@ class Main extends Component {
   }
 
   render() {
-    const logout = <button onClick={this.logout}>Log Out!</button>;
+    const logout = <button onClick={this.logout}>Get Resources</button>;
 
     // check if they are no logged in at all
     if(!this.props.user.uid) {

@@ -8,12 +8,14 @@
 
 // ----- Imports ----- //
 
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { browserHistory } from 'react-router';
+import createSagaMiddleware from 'redux-saga';
 
 // root reducer
 import rootReducer from './reducers/index';
+import rootSaga from './sagas/index'
 
 // Data
 import resources from './data/resources';
@@ -32,7 +34,7 @@ const reduxDevtools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVT
 
 // ----- Store----- //
 
-const store = createStore(rootReducer, defaultState, reduxDevtools);
+const store = createStore(rootReducer, defaultState, composeEnhancers(applyMiddleware(sagaMiddleware)));
 
 // ----- History----- //
 
@@ -46,6 +48,10 @@ if(module.hot) {
     store.replaceReducer(nextRootReducer);
   });
 }
+
+// ----- Run Saga ----- //
+
+sagaMiddleware.run(rootSaga);
 
 // ----- Export ----- //
 

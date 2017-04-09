@@ -1,19 +1,19 @@
-export function fetchResources() {
+export function fetchResources(resources) {
+  console.log('Calling action fetch resources');
   return {
-    type: 'FETCH_RESOURCES'
+    type: 'FETCH_RESOURCES',
+    resources
   }
 }
 
 // add resource
 
 export function addResource(resource) {
-
   return {
     type: 'ADD_RESOURCE',
     resource
   }
 }
-
 
 // update resource
 
@@ -45,6 +45,8 @@ export function addUser(avatar, name, uid) {
     uid
   }
 }
+
+// remove user
 
 export function removeUser() {
   return {

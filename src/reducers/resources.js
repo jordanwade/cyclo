@@ -1,11 +1,9 @@
-import * as firebase from "firebase";
-
 function resources (state = [], action) {
   switch (action.type ) {
     case 'FETCH_RESOURCES':
-      const newMsgRef = firebase.database().ref("resources/");
-      console.log(newMsgRef);
-      return newMsgRef;
+      return [...state,
+        Object.assign({}, action.resource)
+      ];
     case 'ADD_RESOURCE':
       return [...state,
         Object.assign({}, action.resource)
