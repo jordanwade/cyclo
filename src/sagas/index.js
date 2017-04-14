@@ -27,6 +27,23 @@ function* addResource() {
   }
 }
 
+function* update(key, payload) {
+  console.log('Called update');
+  const ref = firebase.database().ref(`resources/${key}`);
+  return ref.update(payload);
+}
+
+function* updateResource() {
+  const action = yield take('UPDATE_RESOURCE');
+  const resource = action.updatedResource;
+  const key = action.key;
+  try {
+    yield call(update, key, resource);
+  } catch (e) {
+    yield put(e);
+  }
+}
+
 function* getAll(path) {
     const ref = firebase.database().ref(path);
     const data = yield call([ref, ref.once], 'value');
@@ -40,12 +57,12 @@ function* getResources() {
   } catch (e) {
     yield put(e);
   }
-
 }
 
 function* rootSaga() {
   yield fork(addResource);
   yield fork(getResources);
+  yield fork(updateResource);
 }
 
 export default rootSaga;
