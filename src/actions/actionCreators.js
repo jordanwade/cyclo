@@ -8,9 +8,10 @@ export function fetchResources(resources) {
 
 // add resource
 
-export function addResource(resource) {
+export function addResource(key, resource) {
   return {
     type: 'ADD_RESOURCE',
+    key,
     resource
   }
 }

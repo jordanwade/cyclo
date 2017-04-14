@@ -42,8 +42,4 @@ class Inventory extends React.Component {
   }
 }
 
-Inventory.propTypes = {
-  resources: React.PropTypes.array.isRequired,
-}
-
 export default Inventory;

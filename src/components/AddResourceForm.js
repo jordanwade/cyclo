@@ -24,7 +24,7 @@ class AddResourceForm extends Component {
         url          : this.url.value,
     };
 
-    this.props.addResource(resource);
+    this.props.addResource(resource.uid, resource);
     this.resourceForm.reset();
   }
 

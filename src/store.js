@@ -18,15 +18,11 @@ import rootReducer from './reducers/index';
 import rootSaga from './sagas/index'
 
 // Data
-import resources from './data/resources';
-import user from './data/user';
+import data from './data/data';
 
 // ----- Default Data ----- //
 
-const defaultState = {
-  resources,
-  user
-}
+const defaultState = data;
 
 // ----- Redux Devtools ----- //
 
