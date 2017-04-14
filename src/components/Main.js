@@ -57,7 +57,7 @@ class Main extends Component {
   }
 
   render() {
-    const logout = <button onClick={this.logout}>Get Resources</button>;
+    const logout = <button onClick={this.logout}>Logout</button>;
 
     // check if they are no logged in at all
     if(!this.props.user.uid) {
