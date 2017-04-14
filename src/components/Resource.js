@@ -19,12 +19,4 @@ class Resource extends Component {
   }
 }
 
-Resource.contextTypes = {
-   router: React.PropTypes.object
-}
-
-Resource.propTypes = {
-  index: React.PropTypes.string.isRequired
-}
-
 export default Resource;
