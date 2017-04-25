@@ -1,4 +1,4 @@
-import { take, call, put, fork } from 'redux-saga/effects';
+import { take, call, put, fork, takeEvery } from 'redux-saga/effects';
 import * as firebase from 'firebase';
 import * as actions from '../actions/actionCreators'
 
@@ -12,16 +12,15 @@ import * as actions from '../actions/actionCreators'
 
 const database = firebase.database();
 
-function insert(item) {
-  const newItemRef = database.ref('resources/');
-  return newItemRef.push(item);
+function insert(key, resource) {
+  const newItemRef = database.ref(`resources/${key}`);
+  return newItemRef.set(resource);
 }
 
-function* addResource() {
-  const action = yield take('ADD_RESOURCE');
+function* addResource(action) {
   const resource = action.resource;
   try {
-    yield call(insert, resource);
+    yield call(insert, resource.resourceId, resource);
   } catch (e) {
     yield put(e);
   }
@@ -30,18 +29,36 @@ function* addResource() {
 function* update(key, payload) {
   console.log('Called update');
   const ref = firebase.database().ref(`resources/${key}`);
-  return ref.update(payload);
+  yield ref.update(payload);
 }
 
-function* updateResource() {
-  const action = yield take('UPDATE_RESOURCE');
-  const resource = action.updatedResource;
+function* remove(key) {
+  console.log('Called remove');
+  const ref = firebase.database().ref(`resources/${key}`);
+  yield ref.remove();
+}
+
+function* updateResource(action) {
+  while (true) {
+    const action = yield take('UPDATE_RESOURCE');
+    const resource = action.updatedResource;
+    const key = action.key;
+    try {
+      yield call(update, key, resource);
+    } catch (e) {
+      yield put(e);
+    }
+  }
+}
+
+function* removeResource(action) {
   const key = action.key;
   try {
-    yield call(update, key, resource);
+    yield call(remove, key);
   } catch (e) {
     yield put(e);
   }
+
 }
 
 function* getAll(path) {
@@ -60,9 +77,10 @@ function* getResources() {
 }
 
 function* rootSaga() {
-  yield fork(addResource);
   yield fork(getResources);
   yield fork(updateResource);
+  yield takeEvery('ADD_RESOURCE', addResource);
+  yield takeEvery('REMOVE_RESOURCE', removeResource);
 }
 
 export default rootSaga;
