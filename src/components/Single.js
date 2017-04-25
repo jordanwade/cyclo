@@ -6,8 +6,7 @@ class Single extends Component {
 
     const { resourceId } = this.props.params;
 
-    const i = this.props.resources.findIndex((resource) => resource.uid === resourceId);
-    const resource = this.props.resources[i];
+    const resource = this.props.resources[resourceId];
 
     return (
       <main>

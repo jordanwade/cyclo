@@ -13,7 +13,7 @@ class Resource extends Component {
         </h3>
         <p className="technology"> Technology: {details.technology}</p>
         <p><img alt={details.name} src={details.avatar} width="24" /></p>
-        <Link className="button" to={`/view/${details.uid}`} >Visit Resource →</Link>
+        <Link className="button" to={`/view/${details.resourceId}`} >Visit Resource →</Link>
       </li> 
     )
   }
