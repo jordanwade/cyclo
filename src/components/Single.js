@@ -5,7 +5,6 @@ class Single extends Component {
   render() { 
 
     const { resourceId } = this.props.params;
-
     const resource = this.props.resources[resourceId];
 
     return (
