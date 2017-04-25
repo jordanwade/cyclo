@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as firebase from 'firebase';
 
 class AddResourceForm extends Component {
 
@@ -10,10 +11,11 @@ class AddResourceForm extends Component {
   createResource(event) {
     event.preventDefault();
     console.log('Gonna make a resource! 😎');
-    const timestamp = Date.now();
+    const ref = firebase.database().ref('resources/');
+    const newKey = () => ref.push().key;
 
     const resource = {
-        resourceId   : `${timestamp}`,
+        resourceId   : newKey(),
         avatar       : this.props.user.avatar,
         desc         : this.desc.value,
         imple        : this.imple.value,
