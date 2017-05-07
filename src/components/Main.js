@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import * as firebase from 'firebase';
 
-import Header from  './Header';
+import Header from './Header';
 
-import base from '../base'; 
+import { auth, gitAuthProvider } from '../base';
 
 class Main extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.authenticate = this.authenticate.bind(this);
-    this.authHandler = this.authHandler.bind(this);
     this.logout = this.logout.bind(this);
   }
 
@@ -18,32 +18,40 @@ class Main extends Component {
     this.props.fetchResources();
   }
 
+  componentDidMount() {
+    auth.onAuthStateChanged((currentUser) => {
+      this.props.setCurrentUser(currentUser);
+    });
+  }
+
   // componentWillUnmount() {
   //   base.removeBinding(this.ref);
   // },
 
   authenticate(provider) {
-    console.log(`Trying to log in with ${provider}`);
-    base.authWithOAuthPopup(provider, this.authHandler);
-  }
+    provider.addScope('repo');
+    auth.signInWithPopup(provider).then((authData) => {
+      console.log(`Trying to log in with ${authData.credential.provider}`);
+      console.log(authData);
+      const ref = firebase.database().ref('users/');
+      const newKey = () => ref.push().key;
 
-  authHandler(err, authData) {
-    console.log(authData);
-    if (err) {
-      console.error(err);
-      return;
-    }
+      const user = {
+        userId: newKey(),
+        uid: authData.user.uid,
+        name: authData.user.displayName,
+        avatar: authData.user.photoURL,
+      };
 
-    const uid = authData.user.uid;
-    const name =  authData.user.displayName;
-    const avatar = authData.user.photoURL;
-    this.props.addUser(avatar, name, uid);
+      this.props.addUser(user.userId, user);
 
+    }).catch((error) => {
+      console.log(error);
+    });;
   }
 
   logout() {
-    base.unauth();
-    this.props.removeUser();
+    this.props.logoutUser();
   }
 
   renderLogin() {
@@ -51,23 +59,23 @@ class Main extends Component {
       <nav className="login">
         <Link to="/">Cyclo</Link>
         <p>Please sign in.</p>
-        <button className="github" onClick={() => this.authenticate('github')}>Log In with Github</button>
+        <button className="github" onClick={() => this.authenticate(gitAuthProvider)}>Log In with Github</button>
       </nav>
     )
   }
 
   render() {
     const logout = <button onClick={this.logout}>Logout</button>;
-
+    const { currentUser } = this.props.users
     // check if they are no logged in at all
-    if(!this.props.user.uid) {
+    if (!currentUser) {
       return <div>{this.renderLogin()}</div>
     }
 
     return (
       <div>
         {logout}
-        <Header  tagline="Welcome to Cyclo" />
+        <Header tagline="Welcome to Cyclo" />
         {React.cloneElement(this.props.children, this.props)}
       </div>
     )

@@ -38,19 +38,27 @@ export function removeResource(key) {
 
 // add user
 
-export function addUser(avatar, name, uid) {
+export function addUser(key, user) {
   return {
     type: 'ADD_USER',
-    avatar,
-    name,
-    uid
+    key,
+    user
   }
 }
 
-// remove user
+// logout user
 
-export function removeUser() {
+export function logoutUser() {
   return {
-    type: 'REMOVE_USER'
+    type: 'LOGOUT_USER'
+  }
+}
+
+// current user
+
+export function setCurrentUser(user) {
+  return {
+    type: 'CURRENT_USER',
+    user
   }
 }
