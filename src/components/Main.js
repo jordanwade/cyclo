@@ -52,6 +52,7 @@ class Main extends Component {
 
   logout() {
     this.props.logoutUser();
+    auth.signOut();
   }
 
   renderLogin() {
