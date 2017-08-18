@@ -16,13 +16,13 @@ class AddResourceForm extends Component {
 
     const resource = {
         resourceId   : newKey(),
-        avatar       : this.props.user.avatar,
+        avatar       : this.props.users.currentUser.photoURL,
         desc         : this.desc.value,
         imple        : this.imple.value,
-        name         : this.props.user.name,
+        name         : this.props.users.currentUser.displayName,
         technology   : this.technology.value,
         title        : this.title.value,
-        uid          : this.props.user.uid,
+        uid          : this.props.users.currentUser.uid,
         url          : this.url.value,
     };
 
