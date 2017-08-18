@@ -12,27 +12,26 @@ import Single from './components/Single';
 import Resources from './components/Resources';
 import NotFound from './components/NotFound';
 
-
 import store, { history } from './store';
 
 import Raven from 'raven-js';
 
-Raven
-    .config('https://cebdea847d9f43e3bb3eb7bf3d3ccc01@sentry.io/156339')
-    .install();
+Raven.config(
+	'https://cebdea847d9f43e3bb3eb7bf3d3ccc01@sentry.io/156339'
+).install();
 
 const Root = () => {
-  return (
-    <Provider store={store}>
-      <Router history={history}>
-        <Route path="/" component={App}>
-          <IndexRoute component={Resources}></IndexRoute>
-          <Route path="/view/:resourceId" component={Single}></Route>
-        </Route>
-        <Route path='*' component={NotFound} />
-      </Router>
-    </Provider>
-  )
-}  
+	return (
+		<Provider store={store}>
+			<Router history={history}>
+				<Route path="/" component={App}>
+					<IndexRoute component={Resources} />
+					<Route path="/view/:resourceId" component={Single} />
+				</Route>
+				<Route path="*" component={NotFound} />
+			</Router>
+		</Provider>
+	);
+};
 
-render(<Root/>, document.querySelector('#root'));
+render(<Root />, document.querySelector('#root'));

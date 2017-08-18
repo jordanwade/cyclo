@@ -4,17 +4,16 @@ import * as actionCreators from '../actions/actionCreators';
 import Main from './Main';
 
 function mapStateToProps(state) {
-  return {
-    resources: state.resources,
-    users: state.users
-  }
+	return {
+		resources: state.resources,
+		users: state.users
+	};
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actionCreators, dispatch);
+	return bindActionCreators(actionCreators, dispatch);
 }
 
 const App = connect(mapStateToProps, mapDispatchToProps)(Main);
-
 
 export default App;

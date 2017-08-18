@@ -15,7 +15,7 @@ import createSagaMiddleware from 'redux-saga';
 
 // root reducer
 import rootReducer from './reducers/index';
-import rootSaga from './sagas/index'
+import rootSaga from './sagas/index';
 
 // Data
 import data from './data/data';
@@ -34,7 +34,11 @@ const sagaMiddleware = createSagaMiddleware();
 
 // ----- Store----- //
 
-const store = createStore(rootReducer, defaultState, composeEnhancers(applyMiddleware(sagaMiddleware)));
+const store = createStore(
+	rootReducer,
+	defaultState,
+	composeEnhancers(applyMiddleware(sagaMiddleware))
+);
 
 // ----- History----- //
 
@@ -42,11 +46,11 @@ export const history = syncHistoryWithStore(browserHistory, store);
 
 // ----- Hot Reload Reducers----- //
 
-if(module.hot) {
-  module.hot.accept('./reducers/',() => {
-    const nextRootReducer = require('./reducers/index').default;
-    store.replaceReducer(nextRootReducer);
-  });
+if (module.hot) {
+	module.hot.accept('./reducers/', () => {
+		const nextRootReducer = require('./reducers/index').default;
+		store.replaceReducer(nextRootReducer);
+	});
 }
 
 // ----- Run Saga ----- //
