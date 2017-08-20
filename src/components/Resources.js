@@ -5,13 +5,14 @@ import React, { Component } from 'react';
 import AddResourceForm from './AddResourceForm';
 import Resource from './Resource';
 import Inventory from './Inventory';
+import List from 'material-ui/List';
 
 class Resources extends Component {
 	render() {
 		return (
 			<main className="main">
 				<AddResourceForm {...this.props} />
-				<ul className="list-of-resources">
+				<List className="list-of-resources">
 					{Object.keys(this.props.resources).map(key =>
 						<Resource
 							key={key}
@@ -19,7 +20,7 @@ class Resources extends Component {
 							details={this.props.resources[key]}
 						/>
 					)}
-				</ul>
+				</List>
 				<Inventory {...this.props} />
 			</main>
 		);

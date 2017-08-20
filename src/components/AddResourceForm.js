@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
+import Button from 'material-ui/Button';
+import TextField from 'material-ui/TextField';
+
+const style = {
+  display: "flex",
+  marginBottom: 20,
+};
+
 class AddResourceForm extends Component {
 
   constructor(props){
@@ -32,13 +40,13 @@ class AddResourceForm extends Component {
 
   render() { 
     return (
-      <form ref={(input) => this.resourceForm = input } className="resource-edit" onSubmit={(e) => this.createResource(e)}>
-        <input ref={(input) => this.title = input } type="text" placeholder="Resource Title"/>
-        <input ref={(input) => this.technology = input } type="text" placeholder="Technology"/>
-        <input ref={(input) => this.url = input } type="text" placeholder="Resource URL"/>
-        <textarea ref={(input) => this.desc = input } placeholder="What did you learn?"></textarea>
-        <textarea ref={(input) => this.imple = input } placeholder="Details about the implementation"></textarea>
-        <button type="submit">+ Add Resource</button>
+      <form ref={(input) => this.resourceForm = input } className="card" onSubmit={(e) => this.createResource(e)}>
+        <TextField style={style} label="Resource Title" ref={(input) => this.title = input } type="text"/>
+        <TextField style={style} label="Technology" ref={(input) => this.technology = input } type="text" placeholder="Technology"/>
+        <TextField style={style} label="Resource URL" ref={(input) => this.url = input } type="text"/>
+        <TextField style={style} label="Description" multiline rows={4} ref={(input) => this.desc = input } />
+        <TextField style={style} label="Implementation" multiline rows={4} ref={(input) => this.imple = input } />
+        <Button raised color="primary" type="submit" >+ Add Resource</Button>
       </form>
     )
   }

@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import * as firebase from 'firebase';
 
 import Header from './Header';
+import Button from 'material-ui/Button';
 
 import { auth, gitAuthProvider } from '../base';
 
@@ -60,13 +61,13 @@ class Main extends Component {
       <nav className="login">
         <Link to="/">Cyclo</Link>
         <p>Please sign in.</p>
-        <button className="github" onClick={() => this.authenticate(gitAuthProvider)}>Log In with Github</button>
+        <Button raised color="primary" className="github" onClick={() => this.authenticate(gitAuthProvider)}>Log In with Github</Button>
       </nav>
     )
   }
 
   render() {
-    const logout = <button onClick={this.logout}>Logout</button>;
+    const logout = <Button raised color="primary" onClick={this.logout}>Logout</Button>;
     const { currentUser } = this.props.users
     // check if they are no logged in at all
     if (!currentUser) {

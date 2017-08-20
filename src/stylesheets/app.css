@@ -369,11 +369,19 @@ template {
 [hidden] {
   display: none; }
 
-html {
-  font-family: sans-serif; }
+body {
+  font-family: sans-serif;
+  background-color: #fafafa; }
 
 header,
 main,
 nav {
   margin: 40px auto;
   max-width: 700px; }
+
+a {
+  text-decoration: none; }
+
+.card {
+  padding: 20px;
+  background: #eee; }

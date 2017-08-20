@@ -1,5 +1,13 @@
 import React from 'react';
 
+import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
+
+const style = {
+  display: "flex",
+  marginBottom: 20,
+};
+
 class Inventory extends React.Component {
   constructor() {
     super();
@@ -21,13 +29,13 @@ class Inventory extends React.Component {
   renderInventory(key) {
     const resource = this.props.resources[key]; 
     return (
-      <div className="resource-edit" key={key}>
-        <input name="title" type="text" value={resource.title}  placeholder="Resource Title" onChange={(e) => this.handleChange(e, key)}/>
-        <input name="technology" type="text" value={resource.technology}  placeholder="Technology" onChange={(e) => this.handleChange(e, key)}/>
-        <input name="url"  type="text" value={resource.url}  placeholder="Resource url" onChange={(e) => this.handleChange(e, key)}/>
-        <textarea name="desc" value={resource.desc}  placeholder="Resource desc" onChange={(e) => this.handleChange(e, key)}></textarea>
-        <textarea name="imple" value={resource.imple}  placeholder="Resource implementation" onChange={(e) => this.handleChange(e, key)}></textarea>
-        <button onClick={() => this.props.removeResource(key)}>Remove Resource</button>
+      <div className="card" key={key}>
+        <TextField style={style} name="title" type="text" value={resource.title}  label="Resource Title" onChange={(e) => this.handleChange(e, key)}/>
+        <TextField style={style} name="technology" type="text" value={resource.technology}  label="Technology" onChange={(e) => this.handleChange(e, key)}/>
+        <TextField style={style} name="url"  type="text" value={resource.url}  label="Resource URL" onChange={(e) => this.handleChange(e, key)}/>
+        <TextField style={style} multiline name="desc" value={resource.desc} label="Description" onChange={(e) => this.handleChange(e, key)} />
+        <TextField style={style} multiline name="imple" value={resource.imple} label="Implementation" onChange={(e) => this.handleChange(e, key)} />
+        <Button raised color="accent" onClick={() => this.props.removeResource(key)}>Remove Resource</Button>
       </div>
     )
   }
