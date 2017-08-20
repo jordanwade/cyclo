@@ -41,11 +41,11 @@ class AddResourceForm extends Component {
   render() { 
     return (
       <form ref={(input) => this.resourceForm = input } className="card" onSubmit={(e) => this.createResource(e)}>
-        <TextField style={style} label="Resource Title" ref={(input) => this.title = input } type="text"/>
-        <TextField style={style} label="Technology" ref={(input) => this.technology = input } type="text" placeholder="Technology"/>
-        <TextField style={style} label="Resource URL" ref={(input) => this.url = input } type="text"/>
-        <TextField style={style} label="Description" multiline rows={4} ref={(input) => this.desc = input } />
-        <TextField style={style} label="Implementation" multiline rows={4} ref={(input) => this.imple = input } />
+        <TextField style={style} label="Resource Title" inputRef={(input) => this.title = input } type="text"/>
+        <TextField style={style} label="Technology" inputRef={(input) => this.technology = input } type="text" placeholder="Technology"/>
+        <TextField style={style} label="Resource URL" inputRef={(input) => this.url = input } type="text"/>
+        <TextField style={style} label="Description" multiline rows={4} inputRef={(input) => this.desc = input } />
+        <TextField style={style} label="Implementation" multiline rows={4} inputRef={(input) => this.imple = input } />
         <Button raised color="primary" type="submit" >+ Add Resource</Button>
       </form>
     )
