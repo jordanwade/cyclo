@@ -2,10 +2,23 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import * as firebase from 'firebase';
 
-import Header from './Header';
+import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
 
 import { auth, gitAuthProvider } from '../base';
+
+const styles = {
+  root: {
+    marginTop: 30,
+    width: '100%',
+  },
+  flex: {
+    flex: 1,
+  },
+};
 
 class Main extends Component {
 
@@ -69,15 +82,25 @@ class Main extends Component {
   render() {
     const logout = <Button raised color="primary" onClick={this.logout}>Logout</Button>;
     const { currentUser } = this.props.users
+
     // check if they are no logged in at all
     if (!currentUser) {
       return <div>{this.renderLogin()}</div>
     }
 
     return (
-      <div>
-        {logout}
-        <Header tagline="Welcome to Cyclo" />
+      <div className={styles.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton color="contrast" aria-label="Menu">
+              🌪
+            </IconButton>
+            <Typography type="title" color="inherit" style={styles.flex}>
+              Cyclo
+            </Typography>
+            {logout}
+          </Toolbar>
+        </AppBar>
         {React.cloneElement(this.props.children, this.props)}
       </div>
     )

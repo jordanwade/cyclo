@@ -3,9 +3,9 @@ function users(state = [], action) {
 		case 'ADD_USER':
 			return { ...state, [action.key]: action.user };
 		case 'CURRENT_USER':
-			return { ...state, ['currentUser']: action.user };
+			return { ...state, 'currentUser': action.user };
 		case 'LOGOUT_USER':
-			return { ...state, ['currentUser']: null };
+			return { ...state, 'currentUser': null };
 		default:
 			return state;
 	}

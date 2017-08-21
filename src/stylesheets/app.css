@@ -369,18 +369,104 @@ template {
 [hidden] {
   display: none; }
 
+*, ::before, ::after {
+  background-repeat: no-repeat;
+  border: 0;
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0; }
+
+::before, ::after {
+  text-decoration: inherit;
+  vertical-align: inherit; }
+
+html {
+  box-sizing: border-box; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit; }
+
+ol, ul {
+  list-style-type: none; }
+
+pre {
+  font-family: inherit; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  -webkit-text-decoration-skip: ink; }
+
+img, svg {
+  vertical-align: middle; }
+
+em, i {
+  font-style: inherit; }
+
+strong, b {
+  font-weight: inherit; }
+
+code, kbd {
+  font-family: inherit; }
+
+button,
+[type='reset'],
+[type='submit'] {
+  -webkit-appearance: button;
+  appearance: button;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit; }
+
+select {
+  font-size: inherit; }
+
+[type='file'] {
+  font-size: inherit; }
+
+textarea,
+[type='email'],
+[type='number'],
+[type='password'],
+[type='search'],
+[type='tel'],
+[type='text'],
+[type='url'] {
+  background-color: transparent;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit; }
+
+[type='search'] {
+  -webkit-appearance: textfield;
+  appearance: textfield; }
+
+textarea {
+  resize: vertical; }
+
+a,
+area,
+button,
+input,
+label,
+select,
+textarea,
+[tabindex] {
+  touch-action: manipulation; }
+
+[type='search'] {
+  outline-offset: -2px; }
+
 body {
   font-family: sans-serif;
   background-color: #fafafa; }
 
-header,
 main,
 nav {
   margin: 40px auto;
   max-width: 700px; }
-
-a {
-  text-decoration: none; }
 
 .card {
   padding: 20px;
