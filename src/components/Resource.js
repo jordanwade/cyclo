@@ -18,7 +18,7 @@ class Resource extends Component {
         <ListItemText
           primary={details.title}
           secondary={`Technology: ${details.technology}`}/>
-        <Link to={`/view/${details.resourceId}`} ><Button raised color="accent" >Visit Resource →</Button></Link>
+        <Link to={`/view/${details.resourceId}`} ><Button raised color="accent" >View Resource →</Button></Link>
       </ListItem> 
     )
   }

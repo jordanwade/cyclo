@@ -22,10 +22,6 @@ const bucketContent = {
 
 class Single extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() { 
 
     const { resourceId } = this.props.params;

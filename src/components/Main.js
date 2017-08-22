@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import * as firebase from 'firebase';
 
+import AddResourceForm from './AddResourceForm';
+
 import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
+import Dialog from 'material-ui/Dialog';
+import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
+import List, { ListItem, ListItemText } from 'material-ui/List';
+import Slide from 'material-ui/transitions/Slide';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 
@@ -18,9 +24,24 @@ const styles = {
   flex: {
     flex: 1,
   },
+  appBar: {
+    position: 'relative',
+  },
 };
 
 class Main extends Component {
+
+  state = {
+    open: false,
+  };
+
+  handleRequestClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
 
   constructor(props) {
     super(props);
@@ -79,8 +100,31 @@ class Main extends Component {
     )
   }
 
+  renderDialog() {
+    return (
+      <Dialog
+        fullScreen
+        open={this.state.open}
+        onRequestClose={this.handleRequestClose}
+        transition={<Slide direction="up" />}
+      >
+        <AppBar style={styles.appBar}>
+          <Toolbar>
+            <Typography type="title" color="inherit" style={styles.flex}>
+              Add a New Resource
+            </Typography>
+            <Button color="contrast" onClick={this.handleRequestClose}>
+              𝗫 Close
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <AddResourceForm {...this.props} />
+      </Dialog>
+    )
+  }
+
   render() {
-    const logout = <Button raised color="primary" onClick={this.logout}>Logout</Button>;
+    const logout = <Button raised color="accent" onClick={this.logout}>Logout</Button>;
     const { currentUser } = this.props.users
 
     // check if they are no logged in at all
@@ -98,9 +142,11 @@ class Main extends Component {
             <Typography type="title" color="inherit" style={styles.flex}>
               Cyclo
             </Typography>
+            <Button color="contrast" onClick={this.handleOpen}>+ Add Resource</Button>
             {logout}
           </Toolbar>
         </AppBar>
+        <div>{this.renderDialog()}</div>
         {React.cloneElement(this.props.children, this.props)}
       </div>
     )

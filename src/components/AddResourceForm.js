@@ -46,7 +46,7 @@ class AddResourceForm extends Component {
         <TextField style={style} label="Resource URL" inputRef={(input) => this.url = input } type="text"/>
         <TextField style={style} label="Description" multiline rows={4} inputRef={(input) => this.desc = input } />
         <TextField style={style} label="Implementation" multiline rows={4} inputRef={(input) => this.imple = input } />
-        <Button raised color="primary" type="submit" >+ Add Resource</Button>
+        <Button raised color="primary" type="submit" >Save Resource</Button>
       </form>
     )
   }
