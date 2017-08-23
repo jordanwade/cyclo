@@ -1,157 +1,170 @@
+import AppBar from 'material-ui/AppBar';
+import Button from 'material-ui/Button';
+import Dialog from 'material-ui/Dialog';
+import IconButton from 'material-ui/IconButton';
+import Slide from 'material-ui/transitions/Slide';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import * as firebase from 'firebase';
 
 import AddResourceForm from './AddResourceForm';
 
-import AppBar from 'material-ui/AppBar';
-import Button from 'material-ui/Button';
-import Dialog from 'material-ui/Dialog';
-import Divider from 'material-ui/Divider';
-import IconButton from 'material-ui/IconButton';
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import Slide from 'material-ui/transitions/Slide';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-
 import { auth, gitAuthProvider } from '../base';
 
 const styles = {
-  root: {
-    marginTop: 30,
-    width: '100%',
-  },
-  flex: {
-    flex: 1,
-  },
-  appBar: {
-    position: 'relative',
-  },
+	root: {
+		marginTop: 30,
+		width: '100%'
+	},
+	flex: {
+		flex: 1
+	},
+	appBar: {
+		position: 'relative'
+	}
 };
 
 class Main extends Component {
+	constructor(props) {
+		super(props);
+		this.authenticate = this.authenticate.bind(this);
+		this.logout = this.logout.bind(this);
+	}
 
-  state = {
-    open: false,
-  };
+	componentWillMount() {
+		this.props.fetchResources();
+	}
 
-  handleRequestClose = () => {
-    this.setState({ open: false });
-  };
+	componentDidMount() {
+		auth.onAuthStateChanged(currentUser => {
+			this.props.setCurrentUser(currentUser);
+		});
+	}
 
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
+	handleRequestClose() {
+		this.setState({ open: false });
+	}
 
-  constructor(props) {
-    super(props);
-    this.authenticate = this.authenticate.bind(this);
-    this.logout = this.logout.bind(this);
-  }
+	handleOpen() {
+		this.setState({ open: true });
+	}
 
-  componentWillMount() {
-    this.props.fetchResources();
-  }
+	// componentWillUnmount() {
+	//   base.removeBinding(this.ref);
+	// },
 
-  componentDidMount() {
-    auth.onAuthStateChanged((currentUser) => {
-      this.props.setCurrentUser(currentUser);
-    });
-  }
+	authenticate(provider) {
+		provider.addScope('repo');
+		auth
+			.signInWithPopup(provider)
+			.then(authData => {
+				console.log(`Trying to log in with ${authData.credential.provider}`);
+				console.log(authData);
+				const ref = firebase.database().ref('users/');
+				const newKey = () => ref.push().key;
 
-  // componentWillUnmount() {
-  //   base.removeBinding(this.ref);
-  // },
+				const user = {
+					userId: newKey(),
+					uid: authData.user.uid,
+					name: authData.user.displayName,
+					avatar: authData.user.photoURL
+				};
 
-  authenticate(provider) {
-    provider.addScope('repo');
-    auth.signInWithPopup(provider).then((authData) => {
-      console.log(`Trying to log in with ${authData.credential.provider}`);
-      console.log(authData);
-      const ref = firebase.database().ref('users/');
-      const newKey = () => ref.push().key;
+				this.props.addUser(user.userId, user);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	}
 
-      const user = {
-        userId: newKey(),
-        uid: authData.user.uid,
-        name: authData.user.displayName,
-        avatar: authData.user.photoURL,
-      };
+	logout() {
+		this.props.logoutUser();
+		auth.signOut();
+	}
 
-      this.props.addUser(user.userId, user);
+	renderLogin() {
+		return (
+			<nav className="login">
+				<Link to="/">Cyclo</Link>
+				<p>Please sign in.</p>
+				<Button
+					raised
+					color="primary"
+					className="github"
+					onClick={() => this.authenticate(gitAuthProvider)}
+				>
+					Log In with Github
+				</Button>
+			</nav>
+		);
+	}
 
-    }).catch((error) => {
-      console.log(error);
-    });;
-  }
+	renderDialog() {
+		return (
+			<Dialog
+				fullScreen
+				open={this.state.open}
+				onRequestClose={this.handleRequestClose}
+				transition={<Slide direction="up" />}
+			>
+				<AppBar style={styles.appBar}>
+					<Toolbar>
+						<Typography type="title" color="inherit" style={styles.flex}>
+							Add a New Resource
+						</Typography>
+						<Button color="contrast" onClick={this.handleRequestClose}>
+							𝗫 Close
+						</Button>
+					</Toolbar>
+				</AppBar>
+				<AddResourceForm {...this.props} />
+			</Dialog>
+		);
+	}
 
-  logout() {
-    this.props.logoutUser();
-    auth.signOut();
-  }
+	render() {
+		const logout = (
+			<Button raised color="accent" onClick={this.logout}>
+				Logout
+			</Button>
+		);
+		const { currentUser } = this.props.users;
 
-  renderLogin() {
-    return (
-      <nav className="login">
-        <Link to="/">Cyclo</Link>
-        <p>Please sign in.</p>
-        <Button raised color="primary" className="github" onClick={() => this.authenticate(gitAuthProvider)}>Log In with Github</Button>
-      </nav>
-    )
-  }
+		// check if they are no logged in at all
+		if (!currentUser) {
+			return (
+				<div>
+					{this.renderLogin()}
+				</div>
+			);
+		}
 
-  renderDialog() {
-    return (
-      <Dialog
-        fullScreen
-        open={this.state.open}
-        onRequestClose={this.handleRequestClose}
-        transition={<Slide direction="up" />}
-      >
-        <AppBar style={styles.appBar}>
-          <Toolbar>
-            <Typography type="title" color="inherit" style={styles.flex}>
-              Add a New Resource
-            </Typography>
-            <Button color="contrast" onClick={this.handleRequestClose}>
-              𝗫 Close
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <AddResourceForm {...this.props} />
-      </Dialog>
-    )
-  }
-
-  render() {
-    const logout = <Button raised color="accent" onClick={this.logout}>Logout</Button>;
-    const { currentUser } = this.props.users
-
-    // check if they are no logged in at all
-    if (!currentUser) {
-      return <div>{this.renderLogin()}</div>
-    }
-
-    return (
-      <div className={styles.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton color="contrast" aria-label="Menu">
-              🌪
-            </IconButton>
-            <Typography type="title" color="inherit" style={styles.flex}>
-              Cyclo
-            </Typography>
-            <Button color="contrast" onClick={this.handleOpen}>+ Add Resource</Button>
-            {logout}
-          </Toolbar>
-        </AppBar>
-        <div>{this.renderDialog()}</div>
-        {React.cloneElement(this.props.children, this.props)}
-      </div>
-    )
-  }
-
+		return (
+			<div className={styles.root}>
+				<AppBar position="static">
+					<Toolbar>
+						<IconButton color="contrast" aria-label="Menu">
+							🌪
+						</IconButton>
+						<Typography type="title" color="inherit" style={styles.flex}>
+							Cyclo
+						</Typography>
+						<Button color="contrast" onClick={this.handleOpen}>
+							+ Add Resource
+						</Button>
+						{logout}
+					</Toolbar>
+				</AppBar>
+				<div>
+					{this.renderDialog()}
+				</div>
+				{React.cloneElement(this.props.children, this.props)}
+			</div>
+		);
+	}
 }
 
-export default Main; 
+export default Main;
