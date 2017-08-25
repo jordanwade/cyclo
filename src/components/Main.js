@@ -32,6 +32,8 @@ class Main extends Component {
 		super(props);
 		this.authenticate = this.authenticate.bind(this);
 		this.logout = this.logout.bind(this);
+		this.handleRequestClose = this.handleRequestClose.bind(this);
+		this.handleOpen = this.handleOpen.bind(this);
 	}
 
 	componentWillMount() {
@@ -45,11 +47,11 @@ class Main extends Component {
 	}
 
 	handleRequestClose() {
-		this.setState({ open: false });
+		this.props.closeDialog();
 	}
 
 	handleOpen() {
-		this.setState({ open: true });
+		this.props.openDialog();
 	}
 
 	// componentWillUnmount() {
@@ -103,10 +105,12 @@ class Main extends Component {
 	}
 
 	renderDialog() {
+		console.log(this.props);
+
 		return (
 			<Dialog
 				fullScreen
-				open={this.state.open}
+				open={this.props.general.open}
 				onRequestClose={this.handleRequestClose}
 				transition={<Slide direction="up" />}
 			>

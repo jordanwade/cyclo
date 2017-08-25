@@ -61,3 +61,20 @@ export function setCurrentUser(user) {
 		user
 	};
 }
+
+// open dialog
+
+export function openDialog() {
+	return {
+		type: 'OPEN_DIALOG'
+	};
+}
+
+// close dialog
+
+export function closeDialog() {
+	return {
+		type: 'CLOSE_DIALOG'
+	};
+}
+
