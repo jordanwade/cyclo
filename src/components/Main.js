@@ -105,7 +105,6 @@ class Main extends Component {
 	}
 
 	renderDialog() {
-		console.log(this.props);
 
 		return (
 			<Dialog
