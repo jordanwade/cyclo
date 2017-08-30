@@ -105,7 +105,6 @@ class Main extends Component {
 	}
 
 	renderDialog() {
-
 		return (
 			<Dialog
 				fullScreen
