@@ -1,31 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 
 import Button from 'material-ui/Button';
 import Avatar from 'material-ui/Avatar';
 import { ListItem, ListItemAvatar, ListItemText } from 'material-ui/List';
 
-class Resource extends Component {
-	render() {
-		const { details } = this.props;
+const Resource = ({ details }) => {
+	const { avatar, name, resourceId, technology, title } = details;
+	return (
+		<ListItem>
+			<ListItemAvatar>
+				<Avatar alt={name} src={avatar} />
+			</ListItemAvatar>
+			<ListItemText primary={title} secondary={`Technology: ${technology}`} />
+			<Link to={`/view/${resourceId}`}>
+				<Button raised color="accent">
+					View Resource →
+				</Button>
+			</Link>
+		</ListItem>
+	);
+};
 
-		return (
-			<ListItem>
-				<ListItemAvatar>
-					<Avatar alt={details.name} src={details.avatar} />
-				</ListItemAvatar>
-				<ListItemText
-					primary={details.title}
-					secondary={`Technology: ${details.technology}`}
-				/>
-				<Link to={`/view/${details.resourceId}`}>
-					<Button raised color="accent">
-						View Resource →
-					</Button>
-				</Link>
-			</ListItem>
-		);
-	}
-}
+Resource.propTypes = {
+	details: PropTypes.shape({
+		avatar: PropTypes.string.isRequired,
+		name: PropTypes.string.isRequired,
+		resourceId: PropTypes.string.isRequired,
+		technology: PropTypes.string.isRequired,
+		title: PropTypes.string.isRequired
+	}).isRequired
+};
 
 export default Resource;

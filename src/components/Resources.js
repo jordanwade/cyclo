@@ -1,28 +1,24 @@
-// Global
-import React, { Component } from 'react';
-
-// App
-import Resource from './Resource';
-import Inventory from './Inventory';
+import React from 'react';
 import List from 'material-ui/List';
 
-class Resources extends Component {
-	render() {
-		return (
-			<main className="main">
-				<List className="list-of-resources">
-					{Object.keys(this.props.resources).map(key =>
-						<Resource
-							key={key}
-							index={key}
-							details={this.props.resources[key]}
-						/>
-					)}
-				</List>
-				<Inventory {...this.props} />
-			</main>
-		);
-	}
-}
+import Resource from './Resource';
+import Inventory from './Inventory';
+
+const Resources = (props) => {
+	return (
+		<main className="main">
+			<List className="list-of-resources">
+				{Object.keys(props.resources).map(key =>
+					<Resource
+						key={key}
+						index={key}
+						details={props.resources[key]}
+					/>
+				)}
+			</List>
+			<Inventory {...props} />
+		</main>
+	);
+};
 
 export default Resources;
