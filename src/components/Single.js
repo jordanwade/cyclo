@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import Avatar from 'material-ui/Avatar';
@@ -19,10 +20,9 @@ const bucketContent = {
   flex: '1 1 auto'
 };
 
-class Single extends Component {
-  render() {
-    const { resourceId } = this.props.params;
-    const resource = this.props.resources[resourceId];
+const Single = (props) => {
+    const { resourceId } = props.params;
+    const resource = props.resources[resourceId];
 
     return (
       <main>
@@ -48,6 +48,10 @@ class Single extends Component {
       </main>
     );
   }
-}
+
+Single.propTypes = {
+  params: PropTypes.shape.isRequired,
+  resources: PropTypes.shape.isRequired,
+};
 
 export default Single;
