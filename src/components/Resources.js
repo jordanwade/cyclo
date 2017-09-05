@@ -1,5 +1,6 @@
 import React from 'react';
 import List from 'material-ui/List';
+import PropTypes from 'prop-types';
 
 import Resource from './Resource';
 import Inventory from './Inventory';
@@ -15,6 +16,10 @@ const Resources = props => {
       <Inventory {...props} />
     </main>
   );
+};
+
+Resources.propTypes = {
+  resources: PropTypes.shape.isRequired,
 };
 
 export default Resources;
