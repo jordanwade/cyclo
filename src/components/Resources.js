@@ -6,11 +6,14 @@ import Resource from './Resource';
 import Inventory from './Inventory';
 
 const Resources = props => {
+
+  const resources = props.resources;
+
   return (
     <main className="main">
       <List className="list-of-resources">
-        {Object.keys(props.resources).map(key =>
-          <Resource key={key} index={key} details={props.resources[key]} />
+        {Object.keys(resources).map(key =>
+          <Resource key={key} index={key} details={resources[key]} />
         )}
       </List>
       <Inventory {...props} />
@@ -18,8 +21,12 @@ const Resources = props => {
   );
 };
 
+Resources.defaultProps = {
+  resources: {}
+};
+
 Resources.propTypes = {
-  resources: PropTypes.shape.isRequired,
+  resources: PropTypes.shape().isRequired,
 };
 
 export default Resources;
