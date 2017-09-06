@@ -5,6 +5,7 @@ import IconButton from 'material-ui/IconButton';
 import Slide from 'material-ui/transitions/Slide';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
+import { withStyles } from 'material-ui/styles';
 
 import React, { Component } from 'react';
 import { Link } from 'react-router';
@@ -24,6 +25,9 @@ const styles = {
   },
   appBar: {
     position: 'relative'
+  },
+  paperWidthMd: {
+    minWidth: 550
   }
 };
 
@@ -107,17 +111,20 @@ class Main extends Component {
   renderDialog() {
     return (
       <Dialog
-        fullScreen
+        maxWidth='md'
         open={this.props.general.open}
         onRequestClose={this.handleRequestClose}
         transition={<Slide direction="up" />}
+        classes={{
+          paperWidthMd: this.props.classes.paperWidthMd, // className, e.g. `OverridesClasses-root-X`
+        }}
       >
-        <AppBar style={styles.appBar}>
+        <AppBar position="static">
           <Toolbar>
-            <Typography type="title" color="inherit" style={styles.flex}>
+            <Typography type="title" color="inherit">
               Add a New Resource
             </Typography>
-            <Button color="contrast" onClick={this.handleRequestClose}>
+            <Button style={{marginLeft: 'auto'}} color="contrast" onClick={this.handleRequestClose}>
               𝗫 Close
             </Button>
           </Toolbar>
@@ -169,4 +176,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default withStyles(styles)(Main);
