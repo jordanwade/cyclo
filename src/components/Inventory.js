@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
@@ -92,5 +93,12 @@ class Inventory extends React.Component {
     );
   }
 }
+
+Inventory.propTypes = {
+  resources: PropTypes.shape().isRequired,
+  updateResource: PropTypes.func.isRequired,
+  users: PropTypes.shape().isRequired,
+  removeResource: PropTypes.func.isRequired
+};
 
 export default Inventory;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
+import PropTypes from 'prop-types';
 
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
@@ -40,26 +41,26 @@ class AddResourceForm extends Component {
   render() {
     return (
       <form
-        ref={input => (this.resourceForm = input)}
+        ref={input => {this.resourceForm = input}}
         className="card"
         onSubmit={e => this.createResource(e)}
       >
         <TextField
           style={style}
           label="Resource Title"
-          inputRef={input => (this.title = input)}
+          inputRef={input => {this.title = input}}
           type="text"
         />
         <TextField
           style={style}
           label="Technology"
-          inputRef={input => (this.technology = input)}
+          inputRef={input => {this.technology = input}}
           type="text"
         />
         <TextField
           style={style}
           label="Resource URL"
-          inputRef={input => (this.url = input)}
+          inputRef={input => {this.url = input}}
           type="text"
         />
         <TextField
@@ -67,14 +68,14 @@ class AddResourceForm extends Component {
           label="Description"
           multiline
           rows={4}
-          inputRef={input => (this.desc = input)}
+          inputRef={input => {this.desc = input}}
         />
         <TextField
           style={style}
           label="Implementation"
           multiline
           rows={4}
-          inputRef={input => (this.imple = input)}
+          inputRef={input => {this.imple = input}}
         />
         <Button raised color="primary" type="submit">
           Save Resource
@@ -83,5 +84,16 @@ class AddResourceForm extends Component {
     );
   }
 }
+
+AddResourceForm.propTypes = {
+  addResource: PropTypes.func.isRequired,
+  users: PropTypes.shape({
+    currentUser: PropTypes.shape({
+      photoURL: PropTypes.string.isRequired,
+      displayName: PropTypes.string.isRequired,
+      uid: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired
+};
 
 export default AddResourceForm;
