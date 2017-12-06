@@ -6,10 +6,11 @@ function resources(state = {}, action) {
 			return { ...state, [action.key]: action.resource };
 		case 'UPDATE_RESOURCE':
 			return { ...state, [action.key]: action.updatedResource };
-		case 'REMOVE_RESOURCE':
+		case 'REMOVE_RESOURCE': {
 			const result = { ...state };
 			delete result[action.key];
 			return result;
+		}
 		default:
 			return state;
 	}
