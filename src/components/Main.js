@@ -12,6 +12,7 @@ import { Link } from 'react-router';
 import * as firebase from 'firebase';
 
 import AddResourceForm from './AddResourceForm';
+import Header from './Header';
 
 import { auth, gitAuthProvider } from '../base';
 
