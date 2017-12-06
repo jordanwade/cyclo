@@ -1,15 +1,12 @@
 import React from 'react';
 
-const Header = props => {
-  return (
+const Header = props =>
     <header className="row">
       <h1>
         {props.tagline}
       </h1>
       <p>This app lets you keep track of all the things you have learned.</p>
-    </header>
-  );
-};
+    </header>;
 
 Header.propTypes = {
   tagline: React.PropTypes.string.isRequired
