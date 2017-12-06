@@ -6,6 +6,7 @@ import Slide from 'material-ui/transitions/Slide';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
+import PropTypes from 'prop-types';
 
 import React, { Component } from 'react';
 import { Link } from 'react-router';
@@ -68,7 +69,6 @@ class Main extends Component {
       .signInWithPopup(provider)
       .then(authData => {
         console.log(`Trying to log in with ${authData.credential.provider}`);
-        console.log(authData);
         const ref = firebase.database().ref('users/');
         const newKey = () => ref.push().key;
 
@@ -175,5 +175,18 @@ class Main extends Component {
     );
   }
 }
+
+Main.propTypes = {
+  children: PropTypes.shape().isRequired,
+  fetchResources: PropTypes.func.isRequired,
+  setCurrentUser: PropTypes.func.isRequired,
+  closeDialog: PropTypes.func.isRequired,
+  openDialog: PropTypes.func.isRequired,
+  addUser: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  general: PropTypes.shape().isRequired,
+  users: PropTypes.shape().isRequired,
+  classes: PropTypes.shape().isRequired,
+};
 
 export default withStyles(styles)(Main);
